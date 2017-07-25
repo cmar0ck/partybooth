@@ -102,7 +102,7 @@ echo
 read -p "Boot directly to Firefox (in fullscreen mode)? Continue (y/n)?" choice
 case "$choice" in
   y|Y )	touch /home/pi/ff.sh;
-	echo 'firefox -foreground -no-remote -new-window localhost & xdotool search --sync --onlyvisible --class "Firefox" windowactivate key F11' | tee -a /home/pi/ff.sh;
+	echo 'firefox -foreground -no-remote -new-window localhost & xdotool search --sync --onlyvisible --class "Firefox" windowactivate key F11 & xdotool search --sync --onlyvisible --class "Firefox" windowactivate key F5' | tee -a /home/pi/ff.sh;
 	sudo chmod +x /home/pi/ff.sh;
 	echo "@sh /home/pi/ff.sh" | sudo tee -a ~/.config/lxsession/LXDE-pi/autostart;
 	echo;
