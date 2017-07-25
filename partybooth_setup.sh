@@ -50,12 +50,8 @@ echo
 echo "Installing xbindkeys"
 sudo apt install -y xbindkeys xbindkeys-config
 xbindkeys --defaults > $HOME/.xbindkeysrc
+echo "xbindkeys" | sudo tee -a ~/.config/lxsession/LXDE-pi/autostart
 echo  
-
-# REMOVED IN FAVOR OF 'HTML { CURSOR: NONE }' (saves resources)
-#echo "Installing unclutter"
-#sudo apt install -y unclutter
-#echo
 
 echo
 echo "###############################"
@@ -86,7 +82,7 @@ case "$choice" in
 	#echo "" | sudo tee -a /boot/config.txt;
 	#echo "# Enabling Cam" | sudo tee -a /boot/config.txt;
 	#echo "start_x=1" | sudo tee -a /boot/config.txt;
-	#echo "disable_camera_led=1" | sudo tee -a /boot/config.txt;
+	#echo "disable_camera_led=1" | sudo tee -a /boot/config.txt;;
   n|N ) echo "cancelling...";;
   * ) 	echo "invalid input";;
 esac
@@ -105,10 +101,6 @@ echo
 
 read -p "Boot directly to Firefox (in fullscreen mode)? Continue (y/n)?" choice
 case "$choice" in
-
-  # # REMOVED IN FAVOR OF 'HTML { CURSOR: NONE }' (saves resources)
-  # y|Y ) read -p "Add 'firefox -foreground -no-remote -new-window localhost & xdotool search --sync --onlyvisible --class \"Firefox\" windowactivate key F11 & unclutter' to the following file" key;
-
   y|Y )	touch /home/pi/ff.sh;
 	echo 'firefox -foreground -no-remote -new-window localhost & xdotool search --sync --onlyvisible --class "Firefox" windowactivate key F11' | tee -a /home/pi/ff.sh;
 	sudo chmod +x /home/pi/ff.sh;
@@ -121,7 +113,7 @@ case "$choice" in
 esac
 echo
 
-read -p "Disable RPI warning overlays ('Power Issue' / 'Overheating' icons, etc)? Continue (y/n)?" choice
+read -p "Disable RPi warning overlays ('Power Issue' / 'Overheating' icons, etc)? Continue (y/n)?" choice
 case "$choice" in 
   y|Y )	echo "" | sudo tee -a /boot/config.txt; 
 	echo "# Disabling warning overlays"; | sudo tee -a /boot/config.txt;
