@@ -55,7 +55,6 @@ echo "  0" | sudo tee -a ~/.xbindkeysrc
 echo "xbindkeys" | sudo tee -a ~/.config/lxsession/LXDE-pi/autostart
 echo
 
-
 echo "Installing Adafruit Retrogame tool (maps GPIO inputs to key presses)"
 echo
 echo "Make sure you have your buttons connected to the following GPIO positions (all on the RIGHT / EVEN side of the header in the UPPER HALF)"
@@ -118,6 +117,8 @@ case "$choice" in
   y|Y )	echo "Adding cronjob..."; 
 	(sudo crontab -l 2>/dev/null; echo "@reboot sudo modprobe bcm2835-v4l2") | sudo crontab - ;
 	echo "DONE (Don't forget to reboot for the changes to take effect.)";
+	echo;
+	echo "Note: It might be useful to add a cooling fan to your RPi3 as it tends to get increasingly hot when accessing the bcm2835-v4l2 via browser.";
 	echo;;
   n|N ) echo "cancelling...";;
   * ) 	echo "invalid input";;
@@ -178,6 +179,7 @@ echo
 echo "2. 'browser.sessionstore.resume_from_crash' -> 'false'"
 echo
 echo "3. Install this addon: https://addons.mozilla.org/en-US/firefox/addon/disable-webrtc-overlay/" 
+echo
 
 echo
 echo "ALL DONE!"
