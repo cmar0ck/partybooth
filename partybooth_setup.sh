@@ -11,7 +11,6 @@
 # TODO: 1. Shutter (button + pikey / retrogame?) #
 #	2. Power / reset / shutdown button	 #
 #	3. Gallery upload			 #
-#	4. Limit framerate			 #
 ##################################################
 
 
@@ -67,6 +66,21 @@ case "$choice" in
   * ) 	echo "invalid input";;
 esac
 echo
+
+read -p "Install Adafruit Retrogame (maps GPIO Inputs to Key Presses)? Continue (y/n)?" choice
+case "$choice" in 
+  y|Y ) echo "Make sure you have your buttons connected and know their gpio positions";
+	echo "(In case of doubt choose 'Pigrrl 2 button' template.)";
+  	read -p "Important: Do NOT rebooot the system after Retrogame installation is done!" key;
+	cd;
+    	curl -O https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/retrogame.sh;
+    	sudo bash retrogame.sh;
+	sudo nano /boot/retrogame.cfg;;
+  n|N ) echo "cancelling...";;
+  * ) 	echo "invalid input";;
+esac
+echo
+
 
 echo
 echo "###############################"
