@@ -8,9 +8,8 @@
 
 
 ##################################################
-# TODO: 1. Shutter (button + pikey / retrogame?) #
-#	2. Power / reset / shutdown button	 #
-#	3. Gallery upload			 #
+# TODO: 1. Power / reset button	 		 #
+#	2. Gallery upload			 #
 ##################################################
 
 
@@ -49,6 +48,10 @@ echo
 echo "Installing xbindkeys"
 sudo apt install -y xbindkeys xbindkeys-config
 xbindkeys --defaults > $HOME/.xbindkeysrc
+echo "" | sudo tee -a ~/.xbindkeysrc
+echo "Enabling shutdown on key press '0'"
+echo '"sudo shutdown -h now"' | sudo tee -a ~/.xbindkeysrc
+echo "  0" | sudo tee -a ~/.xbindkeysrc
 echo "xbindkeys" | sudo tee -a ~/.config/lxsession/LXDE-pi/autostart
 echo  
 
@@ -67,15 +70,27 @@ case "$choice" in
 esac
 echo
 
-read -p "Install Adafruit Retrogame (maps GPIO Inputs to Key Presses)? Continue (y/n)?" choice
+read -p "Install Adafruit Retrogame tool (maps GPIO inputs to key presses)? Continue (y/n)?" choice
 case "$choice" in 
-  y|Y ) echo "Make sure you have your buttons connected and know their gpio positions";
-	echo "(In case of doubt choose 'Pigrrl 2 button' template.)";
-  	read -p "Important: Do NOT rebooot the system after Retrogame installation is done!" key;
+  y|Y ) echo "Make sure you have your buttons connected to the following GPIO positions (all on the RIGHT side of the header in the UPPER HALF)";
+	echo;
+	echo "Take Picture (Key '1'): PIN6(GND), PIN12(GPIO18)";
+	echo "Shutdown Pi  (Key '0'): PIN18(GPIO24), PIN20(GND)"; 
+	echo;
+	echo "If you want to add a reset button just solder it to the 'Run' headers on the Pi board (usw with caution!).";
+  	echo;
+	read -p "Important: Do NOT rebooot the system directly after Retrogame installation is done (first complete the rest of thid setup script)!" key;
+	echo;
 	cd;
     	curl -O https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/retrogame.sh;
     	sudo bash retrogame.sh;
-	sudo nano /boot/retrogame.cfg;;
+	echo "# Here's the pin configuration for the Partybooth project (following BCM numbering convention)" | sudo tee /boot/retrogame.cfg;
+	echo "# (left is the key to map, right its corresponding pin number):" | sudo tee -a /boot/retrogame.cfg;
+	echo "" | sudo tee -a /boot/retrogame.cfg
+	echo "0         24  # Shutdown Partybooth" | sudo tee -a /boot/retrogame.cfg;
+	echo "1         18  # Take Photo" | sudo tee -a /boot/retrogame.cfg;
+	echo "" | sudo tee -a /boot/retrogame.cfg;
+	rm retrogame.sh;;
   n|N ) echo "cancelling...";;
   * ) 	echo "invalid input";;
 esac
