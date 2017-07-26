@@ -62,7 +62,7 @@ echo
 echo "Take Picture (Key '1'): PIN6(GND), PIN12(GPIO18)"
 echo "Shutdown Pi  (Key '0'): PIN18(GPIO24), PIN20(GND)" 
 echo
-echo "If you want to add a reset button just solder it to the 'Run' headers on the RPi3 board (usw with caution!)."
+echo "If you want to add a reset button just solder it to the 'Run' headers on the RPi3 board (use with caution!)."
 echo
 read -p "IMPORTANT: Do NOT rebooot the system directly after Retrogame installation is done! (First complete the rest of this setup script!)" key
 echo
