@@ -56,7 +56,7 @@ echo
 
 echo "Installing Adafruit Retrogame tool (maps GPIO inputs to key presses)"
 echo
-echo "Make sure you have your buttons connected to the following GPIO positions (all on the RIGHT / EVEN side of the header in the UPPER HALF)"
+echo "Make sure you have your buttons connected to the following GPIO positions (all on the RIGHT / EVENLY NUMBERED side of the header in the UPPER HALF)"
 echo
 echo "Take Picture (Key '1'): PIN6(GND), PIN12(GPIO18)"
 echo "Shutdown Pi  (Key '0'): PIN18(GPIO24), PIN20(GND)" 
