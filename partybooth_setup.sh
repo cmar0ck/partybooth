@@ -63,6 +63,8 @@ echo "Shutdown Pi  (Key '0'): PIN18(GPIO24), PIN20(GND)"
 echo
 echo "If you want to add a reset button just solder it to the 'Run' headers on the RPi3 board (use with caution!)."
 echo
+echo "Note: It doesn't matter which configuration template you choose when the Retrogame installer starts, this script is going to apply the settings for you automatically."
+echo
 read -p "IMPORTANT: Do NOT rebooot the system directly after Retrogame installation is done! (First complete the rest of this setup script!)" key
 echo
 cd
