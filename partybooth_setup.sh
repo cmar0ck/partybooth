@@ -53,7 +53,30 @@ echo "Enabling shutdown on key press '0'"
 echo '"sudo shutdown -h now"' | sudo tee -a ~/.xbindkeysrc
 echo "  0" | sudo tee -a ~/.xbindkeysrc
 echo "xbindkeys" | sudo tee -a ~/.config/lxsession/LXDE-pi/autostart
-echo  
+echo
+
+
+echo "Installing Adafruit Retrogame tool (maps GPIO inputs to key presses)"
+echo
+echo "Make sure you have your buttons connected to the following GPIO positions (all on the RIGHT / EVEN side of the header in the UPPER HALF)"
+echo
+echo "Take Picture (Key '1'): PIN6(GND), PIN12(GPIO18)"
+echo "Shutdown Pi  (Key '0'): PIN18(GPIO24), PIN20(GND)" 
+echo
+echo "If you want to add a reset button just solder it to the 'Run' headers on the RPi3 board (usw with caution!)."
+echo
+read -p "IMPORTANT: Do NOT rebooot the system directly after Retrogame installation is done! (First complete the rest of this setup script!)" key
+echo
+cd
+curl -O https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/retrogame.sh
+sudo bash retrogame.sh
+echo "# Here's the pin configuration for the Partybooth project (following BCM numbering convention)" | sudo tee /boot/retrogame.cfg
+echo "# (left is the key to map, right its corresponding pin number):" | sudo tee -a /boot/retrogame.cfg
+echo "" | sudo tee -a /boot/retrogame.cfg
+echo "0         24  # Shutdown Partybooth" | sudo tee -a /boot/retrogame.cfg
+echo "1         18  # Take Photo" | sudo tee -a /boot/retrogame.cfg
+echo "" | sudo tee -a /boot/retrogame.cfg
+rm retrogame.sh
 
 echo
 echo "###############################"
@@ -69,33 +92,6 @@ case "$choice" in
   * ) 	echo "invalid input";;
 esac
 echo
-
-read -p "Install Adafruit Retrogame tool (maps GPIO inputs to key presses)? Continue (y/n)?" choice
-case "$choice" in 
-  y|Y ) echo "Make sure you have your buttons connected to the following GPIO positions (all on the RIGHT side of the header in the UPPER HALF)";
-	echo;
-	echo "Take Picture (Key '1'): PIN6(GND), PIN12(GPIO18)";
-	echo "Shutdown Pi  (Key '0'): PIN18(GPIO24), PIN20(GND)"; 
-	echo;
-	echo "If you want to add a reset button just solder it to the 'Run' headers on the Pi board (usw with caution!).";
-  	echo;
-	read -p "Important: Do NOT rebooot the system directly after Retrogame installation is done (first complete the rest of thid setup script)!" key;
-	echo;
-	cd;
-    	curl -O https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/retrogame.sh;
-    	sudo bash retrogame.sh;
-	echo "# Here's the pin configuration for the Partybooth project (following BCM numbering convention)" | sudo tee /boot/retrogame.cfg;
-	echo "# (left is the key to map, right its corresponding pin number):" | sudo tee -a /boot/retrogame.cfg;
-	echo "" | sudo tee -a /boot/retrogame.cfg
-	echo "0         24  # Shutdown Partybooth" | sudo tee -a /boot/retrogame.cfg;
-	echo "1         18  # Take Photo" | sudo tee -a /boot/retrogame.cfg;
-	echo "" | sudo tee -a /boot/retrogame.cfg;
-	rm retrogame.sh;;
-  n|N ) echo "cancelling...";;
-  * ) 	echo "invalid input";;
-esac
-echo
-
 
 echo
 echo "###############################"
@@ -132,7 +128,7 @@ read -p "Boot directly to Firefox (in fullscreen mode)? Continue (y/n)?" choice
 case "$choice" in
   y|Y )	touch /home/pi/ff.sh;
 	echo 'firefox -foreground -no-remote -new-window localhost & xdotool search --sync --onlyvisible --class "Firefox" windowactivate key F11 & xdotool search --sync --onlyvisible --class "Firefox" windowactivate key F5' | tee -a /home/pi/ff.sh;
-	sudo chmod +x /home/pi/ff.sh;
+	sudo chmod a+x /home/pi/ff.sh;
 	echo "@sh /home/pi/ff.sh" | sudo tee -a ~/.config/lxsession/LXDE-pi/autostart;
 	echo;
 	echo "DONE (Don't forget to reboot for the changes to take effect.)";
@@ -184,5 +180,5 @@ echo
 echo "3. Install this addon: https://addons.mozilla.org/en-US/firefox/addon/disable-webrtc-overlay/" 
 
 echo
-echo "DONE"
+echo "ALL DONE!"
 echo
