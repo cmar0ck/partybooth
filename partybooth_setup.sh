@@ -117,7 +117,7 @@ case "$choice" in
 	(sudo crontab -l 2>/dev/null; echo "@reboot sudo modprobe bcm2835-v4l2") | sudo crontab - ;
 	echo "DONE (Don't forget to reboot for the changes to take effect.)";
 	echo;
-	echo "Note: It might be useful to add a cooling fan to your RPi3 as it tends to get increasingly hot when accessing the bcm2835-v4l2 via browser.";
+	echo "Note: It might be useful to add a cooling fan to your RPi3 as it tends to get increasingly hot when accessing the bcm2835-v4l2 from a browser.";
 	echo;;
   n|N ) echo "cancelling...";;
   * ) 	echo "invalid input";;
