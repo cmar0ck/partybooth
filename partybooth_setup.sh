@@ -48,18 +48,19 @@ echo "Installing xbindkeys"
 sudo apt install -y xbindkeys xbindkeys-config
 xbindkeys --defaults > $HOME/.xbindkeysrc
 echo "" | sudo tee -a ~/.xbindkeysrc
-echo "Enabling shutdown on key press '0'"
+echo "Enabling shutdown on pressing 'END' key"
 echo '"sudo shutdown -h now"' | sudo tee -a ~/.xbindkeysrc
-echo "  0" | sudo tee -a ~/.xbindkeysrc
-echo "xbindkeys" | sudo tee -a ~/.config/lxsession/LXDE-pi/autostart
+echo "  m:0x0 + c:115" | sudo tee -a ~/.xbindkeysrc
+echo "  End" | sudo tee -a ~/.xbindkeysrc
+echo "@xbindkeys" | sudo tee -a ~/.config/lxsession/LXDE-pi/autostart
 echo
 
 echo "Installing Adafruit Retrogame tool (maps GPIO inputs to key presses)"
 echo
 echo "Make sure you have your buttons connected to the following GPIO positions (all on the RIGHT / EVENLY NUMBERED side of the header in the UPPER HALF)"
 echo
-echo "Take Picture (Key '1'): PIN6(GND), PIN12(GPIO18)"
-echo "Shutdown Pi  (Key '0'): PIN18(GPIO24), PIN20(GND)" 
+echo "Take Picture (Key '1'):  PIN6(GND), PIN12(GPIO18)"
+echo "Shutdown Pi (Key 'END'): PIN18(GPIO24), PIN20(GND)" 
 echo
 echo "If you want to add a reset button just solder it to the 'Run' headers on the RPi3 board (use with caution!)."
 echo
@@ -73,7 +74,7 @@ sudo bash retrogame.sh
 echo "# Here's the pin configuration for the Partybooth project (following BCM numbering convention)" | sudo tee /boot/retrogame.cfg
 echo "# (left is the key to map, right its corresponding pin number):" | sudo tee -a /boot/retrogame.cfg
 echo "" | sudo tee -a /boot/retrogame.cfg
-echo "0         24  # Shutdown Partybooth" | sudo tee -a /boot/retrogame.cfg
+echo "END       24  # Shutdown Partybooth" | sudo tee -a /boot/retrogame.cfg
 echo "1         18  # Take Photo" | sudo tee -a /boot/retrogame.cfg
 echo "" | sudo tee -a /boot/retrogame.cfg
 rm retrogame.sh
