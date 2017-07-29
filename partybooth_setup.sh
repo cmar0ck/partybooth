@@ -59,7 +59,7 @@ echo "Installing Adafruit Retrogame tool (maps GPIO inputs to key presses)"
 echo
 echo "Make sure you have your buttons connected to the following GPIO positions (all on the RIGHT / EVENLY NUMBERED side of the header in the UPPER HALF)"
 echo
-echo "Take Picture (Key '1'):  PIN6(GND), PIN12(GPIO18)"
+echo "Take Picture (Key '1'):  PIN12(GPIO18), PIN14(GND)"
 echo "Shutdown Pi (Key 'END'): PIN18(GPIO24), PIN20(GND)" 
 echo
 echo "If you want to add a reset button just solder it to the 'Run' headers on the RPi3 board (use with caution!)."
